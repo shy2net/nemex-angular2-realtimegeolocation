@@ -2,6 +2,9 @@
 
 This service allows you to obtain realtime GPS locations within Angular 2+.
 
+Note: Chrome and Safari requires that the connection of the device will be over SSL (https://), make sure to
+debug and use SSL on your producation for this to work.
+
 ## Installation
 
 Install the package using the following command:
