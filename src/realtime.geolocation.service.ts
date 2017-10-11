@@ -40,7 +40,7 @@ export class RealtimeGeolocationService {
             window.navigator.geolocation.getCurrentPosition(
                 (position) => {
                     observer.next(position);
-                    observable.complete();
+                    observer.complete();
                 },
                 (error) => {
                     observer.error(error);
