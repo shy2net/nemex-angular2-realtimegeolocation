@@ -1,6 +1,6 @@
 # Nemex Angular 2+ Realtime Geolocation Server
 
-This module allows you to obtain realtime GPS locations using Angular 2+ easily using a service.
+This service allows you to obtain realtime GPS locations within Angular 2+.
 
 ## Installation
 
@@ -46,8 +46,8 @@ export class MapComponent implements OnInit {
   constructor(private locationService:RealtimeGeolocationService) { }
 
   ngOnInit() {
-    // Start obtaining realtime location when map component loads
     try {  
+        // Start obtaining realtime location when map component loads
         this.locationService.refreshInterval = 300;
         this.locationService.start(); 
 
