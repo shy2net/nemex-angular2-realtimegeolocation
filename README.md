@@ -1,4 +1,4 @@
-# Nemex Angular 2+ Realtime Geolocation Server
+# Nemex Angular 2+ Realtime Geolocation Service
 
 This service allows you to obtain realtime GPS locations within Angular 2+.
 
