@@ -1,0 +1,1 @@
+export { RealtimeGeolocationService } from './src/realtime.geolocation.service';
