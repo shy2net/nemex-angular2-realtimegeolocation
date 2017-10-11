@@ -1,4 +1,3 @@
-import { observable } from 'nemex-angular2-realtimegeolocation/node_modules/rxjs/symbol/observable';
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 
