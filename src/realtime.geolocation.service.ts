@@ -1,3 +1,4 @@
+import { observable } from 'nemex-angular2-realtimegeolocation/node_modules/rxjs/symbol/observable';
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -9,8 +10,8 @@ export class RealtimeGeolocationService {
     // The number of milliseconds to refresh the location
     public refreshInterval: number = 1000;
     public locationOptions: PositionOptions = { enableHighAccuracy: true };
-    public get listening():boolean { return this.isListening; }
-    
+    public get listening(): boolean { return this.isListening; }
+
     private isListening: boolean = false;
     private refreshTimer = null;
     private lastPositionTime: number = 0;
@@ -33,8 +34,24 @@ export class RealtimeGeolocationService {
         this.locationObservable.subscribe();
     }
 
+    // Returns the current position async
+    getCurrentPosition(): Observable<Position> {
+        return new Observable(observer => {
+            window.navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    observer.next(position);
+                    observable.complete();
+                },
+                (error) => {
+                    observer.error(error);
+                    observer.complete();
+                }
+            )
+        });
+    }
+
     // Obtains the next position async, and then schedules the next position obtainment
-    obtainNextPosition(observer): void {
+    private obtainNextPosition(observer): void {
         if (!this.isListening) return;
         this.lastPositionTime = Date.now();
 
@@ -71,7 +88,7 @@ export class RealtimeGeolocationService {
     }
 
     // Schedules the next call to obtain the position, used the refreshInterval - deltaTime (the last we have obtained a position)
-    scheduleNextPositionCall(observer): void {
+    private scheduleNextPositionCall(observer): void {
         let currentTime = Date.now();
         let deltaTime = currentTime - this.lastPositionTime;
         let scheduledMillis = Math.max(this.refreshInterval - deltaTime, 0);

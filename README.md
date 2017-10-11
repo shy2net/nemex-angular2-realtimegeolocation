@@ -55,11 +55,13 @@ export class MapComponent implements OnInit {
         this.locationService.start(); 
 
         // Update the location on the map according to the current position of the user
-        this.locationService.getLocationObservable().subscribe(position => {
-        this.currentLocation = position.coords;
-        }, error => {
-        // Usually called because of permission issues or an error obtaining the last position
-        alert(error.message);
+        this.locationService.getLocationObservable().subscribe(
+          position => {
+            this.currentLocation = position.coords;
+          }, 
+          error => {
+            // Usually called because of permission issues or an error obtaining the last position
+            alert(error.message);
         });
     } catch(error) {
       // This error is usually called when device does not support geolocation at all
@@ -87,5 +89,18 @@ this.locationService.onLocationObtained.subscribe(position => {
 
 this.locationService.onLocationError.subscribe(error => {
     // An error had occured while trying to get the last position
+});
+```
+
+You can also obtain the current position instead of listening to realtime locations using the following method:
+```typescript
+// Returns an observable which returns the current position
+getCurrentPosition().subscribe(position => {
+  // We have obtained a position!
+  console.log(position);
+},
+error => {
+  // An error had occured
+  console.error(error);
 });
 ```
